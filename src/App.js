@@ -1,30 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import Technologies from './components/Technologies/Technologies';
 
 const App = () => {
   return (
     <div>
       <Header />
-      <Techologies />
+      <Technologies />
     </div>      
     )
   }
-  
-  const Header = () => {
-  return (
-      <div className='App'>
-        ку
-      </div>
-    )
-  }
-
-  const Techologies = () => {
-    return (
-        <div className='App'>
-          ка
-        </div>
-      )
-    }
 
 export default App;
 
