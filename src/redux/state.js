@@ -1,5 +1,7 @@
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
+const SEND_MESSAGE = "SEND_MESSAGE";
 
 let store = {
   _state: {
@@ -23,7 +25,8 @@ let store = {
         { id: 1, name: "Иринка" },
         { id: 2, name: "Вантик" },
         { id: 3, name: "Димыч" }
-      ]
+      ],
+      newMessageBody: ""
     }
   },
   _callSubscriber() {
@@ -50,6 +53,14 @@ let store = {
     } else if (action.type === UPDATE_NEW_POST_TEXT) {
       this._state.profile.newPostText = action.newText;
       this._callSubscriber(this._state);
+    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+      this._state.dialogs.newMessageBody = action.body;
+      this._callSubscriber(this._state);
+    } else if (action.type === SEND_MESSAGE) {
+      let body = this._state.dialogs.newMessageBody;
+      this._state.dialogs.newMessageBody = "";
+      this._state.dialogs.messages.push({id: 4, message: body});
+      this._callSubscriber(this._state);
     }
   }
 };
@@ -61,6 +72,15 @@ export const addPostActionCreater = () => ({
 export const updateNewPostTextActionCreater = text => ({
   type: UPDATE_NEW_POST_TEXT,
   newText: text
+});
+
+export const sendMessageCreater = () => ({
+  type: SEND_MESSAGE
+});
+
+export const updateNewMessageBodyCreater = body => ({
+  type: UPDATE_NEW_MESSAGE_BODY,
+  body: body
 });
 
 export default store;
