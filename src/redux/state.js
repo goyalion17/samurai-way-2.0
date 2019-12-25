@@ -54,18 +54,14 @@ let store = {
   }
 };
 
-export const addPostActionCreater = () => {
-  return {
-    type: ADD_POST
-  };
-};
+export const addPostActionCreater = () => ({
+  type: ADD_POST
+});
 
-export const updateNewPostTextActionCreater = text => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-  };
-};
+export const updateNewPostTextActionCreater = text => ({
+  type: UPDATE_NEW_POST_TEXT,
+  newText: text
+});
 
 export default store;
 
