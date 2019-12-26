@@ -1,7 +1,5 @@
-const ADD_POST = "ADD_POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE_NEW_MESSAGE_BODY";
-const SEND_MESSAGE = "SEND_MESSAGE";
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
 
 let store = {
   _state: {
@@ -41,48 +39,16 @@ let store = {
   },
 
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      const newPost = {
-        id: 5,
-        message: this._state.profile.newPostText,
-        likesCount: 12
-      };
-      this._state.profile.posts.push(newPost);
-      this._state.profile.newPostText = "";
-      this._callSubscriber(this._state);
-    } else if (action.type === UPDATE_NEW_POST_TEXT) {
-      this._state.profile.newPostText = action.newText;
-      this._callSubscriber(this._state);
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.dialogs.newMessageBody = action.body;
-      this._callSubscriber(this._state);
-    } else if (action.type === SEND_MESSAGE) {
-      let body = this._state.dialogs.newMessageBody;
-      this._state.dialogs.newMessageBody = "";
-      this._state.dialogs.messages.push({id: 4, message: body});
-      this._callSubscriber(this._state);
-    }
+    this._state.profile = profileReducer(this._state.profile, action);
+    this._state.dialogs = dialogsReducer(this._state.dialogs, action);
+
+    this._callSubscriber(this._state);
   }
 };
-
-export const addPostActionCreater = () => ({
-  type: ADD_POST
-});
-
-export const updateNewPostTextActionCreater = text => ({
-  type: UPDATE_NEW_POST_TEXT,
-  newText: text
-});
-
-export const sendMessageCreater = () => ({
-  type: SEND_MESSAGE
-});
-
-export const updateNewMessageBodyCreater = body => ({
-  type: UPDATE_NEW_MESSAGE_BODY,
-  body: body
-});
 
 export default store;
 
 window.store = store;
+
+// action  - это объект, у которого, как минимум, есть свойство type
+// reducer - это чистая функция, которая принимает state и action и возвращает новый state
