@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import "./App.css";
-import Dialogs from "./components/Dialogs/Dialogs";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Profile from "./components/Profile/Profile";
@@ -12,16 +12,8 @@ const App = props => {
       <Header />
       <Nav />
       <div className="app-wrapper-content">
-        <Route
-          path="/profile"
-          render={() => (
-            <Profile state={props.state.profile} dispatch={props.dispatch} />
-          )}
-        />
-        <Route
-          path="/dialogs"
-          render={() => <Dialogs store={props.store} />}
-        />
+        <Route path="/profile" render={() => <Profile store={props.store} />} />
+        <Route path="/dialogs" render={() => <DialogsContainer store={props.store} />} />
         {/* <Route path="/news" render={ () => <News />} />
           <Route path="/music" render={ () => <Music />} />
           <Route path="/settings" render={ () => <Settings />} /> */}
